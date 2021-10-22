@@ -13,7 +13,7 @@
 
 
 ### Pergunta/Análise 1
-> * Qual o gênero mais isolado?
+* **Qual o gênero mais isolado?**
 
   O gênero mais isolado pode ser determinado por uma métrica de centralidade no grafo dos filmes de maior bilheteria em cada um dos últimos 70 anos.
 
@@ -26,7 +26,7 @@
 
 
 ### Pergunta/Análise 2
-> * Qual o filme de maior centralidade?
+* **Qual o filme de maior centralidade?**
 
   A centralidade de filmes será analisada por dois critérios quantitativos de igual peso.
 
@@ -38,7 +38,8 @@
 
 
 ### Pergunta/Análise 3
-> *  Existem comunidades de estúdios?
+
+* **Existem comunidades de estúdios?**
 
   O intuito dessa pergunta é descobrir se existem grupos de estúdios com uma grande quantidade de colaborações entre si, a ponto de formarem uma comunidade dentro da amostra total de estúdios que produziram os filmes de maiores bilheterias dos últimos anos.
 
