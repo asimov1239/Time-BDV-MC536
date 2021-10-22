@@ -9,6 +9,18 @@
 ## Modelo Lógico Combinado do Banco de Dados de Grafos
 > ![Modelo Lógico de Grafos](images/modelo-logico.png)
 
+## **Modelo em grafos**
+
+Nosso dataset do trabalho final não será construído com o modelo lógico de grafos. Todavia, para fins deste Laboratório nós construiremos uma versão em grafos de nosso dataset.
+
+Cada filme será um nó conectado por arestas com outros quatro tipos de nós, a saber, os estúdios que os produziram (relação de produção), seus gêneros (relação de pertencimento), as resenhas sobre ele (relação de assunto), e seu ano de lançamento (relação de coexistência).
+
+Cada filme terá a propriedade de bilheteria (normalizada de 0.0 a 1.0, baseado em U$ corrigido pela inflação) e cada resenha terá a propriedade de nota (normalizada de 0.0 a 1.0, baseado em cada escala de avaliação). Isso gerará um pequeno grafo para cada filme.
+
+Os grafos serão então unificados (operação de **join**), preservando a unicidade de cada gênero, estúdio, e ano, gerando um enorme grafo.
+
+Nosso grafo terá a propriedade de ser tetrapartido: filmes, gêneros, estúdios, e anos não possuem arestas dentro de sua própria categoria, isto é, não se relacionam. Relações existem apenas entre um filme e um nó de uma das outras três categorias. Seria possível eliminar essa partição ao realizar uma operação de **projeção sem threshold**, conectando estúdios que co-produziram um filme ou conectando gêneros que figuram em um mesmo filme. (Não haveria possibilidade semântica de anos se conectarem, visto que cada filme no nosso dataset possui um único ano.)
+
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
 
