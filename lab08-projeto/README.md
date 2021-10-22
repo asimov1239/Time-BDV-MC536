@@ -1,10 +1,10 @@
 
 # Apresentação do Lab08 - Modelo Lógico e Análise de Dados em Grafos
 
-# Equipe `<Time BDV>` - `<BDV>`
-* `<Daniel Credico de Coimbra>` - `<155077>`
-* `<Gabriel Bonfim Silva de Moraes>` - `<216111>`
-* `<Victor Durço Gomes Bijos>` - `<206508>`
+# Equipe `Time BDV` - `BDV`
+* `Daniel Credico de Coimbra` - `155077`
+* `Gabriel Bonfim Silva de Moraes` - `216111`
+* `Victor Durço Gomes Bijos` - `206508`
 
 ## Modelo Lógico Combinado do Banco de Dados de Grafos
 > ![Modelo Lógico de Grafos](images/modelo-logico.png)
