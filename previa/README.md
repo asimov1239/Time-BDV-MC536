@@ -6,17 +6,15 @@
 * `Victor Durço Gomes Bijos` - `206508`
 
 ## Resumo do Projeto
-> Texto resumindo o projeto.
+Dataset que integra informações de diversas fontes sobre os 25 filmes com maior bilheteria de cada um dos últimos 70 anos, totalizando 1750 filmes. Cada filme está relacionado a gêneros e estúdios, além de ser informado características como ano, avaliação crítica (IMDb e Metacritic), bilhetaria, número de bilhetes vendidos, e código IMDb. O objetivo é permitir maior compreensão do fenômeno cultural do cinema e melhor tomada de decisões sobre produção de filmes.
 
 ## Slides da Apresentação
 > Link do PDF
 
 ## Modelo Conceitual Preliminar
-
 > ![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpeg)
 
 ## Modelos Lógicos Preliminares
-
 ~~~
 FILMES: (IMDb ID, filme, ano, orçamento, bilheteria, duração)
 RESENHA-FILME: (IMDb ID, fonte, nota)
@@ -27,14 +25,9 @@ GÊNERO-FILME: (IMDb ID, gênero)
 ##### Falta um modelo lógico!!
 
 ## Dataset Preliminar a ser Publicado
-> Elencar os arquivos/bases preliminares dos datasets serão publicados publicados.
-
 título do arquivo/base | link | breve descrição
 ----- | ----- | -----
-`<título do arquivo/base>` | `<link para arquivo/base>` | `<breve descrição do arquivo/base>`
-
-> Os arquivos finais do dataset publicado devem ser colocados na pasta `data`, em subpasta `processed`. Outros arquivos serão colocados em subpastas conforme seu papel (externo, interim, raw). A diferença entre externo e raw é que o raw é em formato não adaptado para uso. A pasta `raw` é opcional, pois pode ser substituída pelo link para a base original da seção anterior.
-> Coloque arquivos que não estejam disponíveis online e sejam acessados pelo notebook. Relacionais (usualmente CSV), XML, JSON e CSV ou triplas para grafos.
+`SQLflix_parcial.csv` | `(SQLflix parcial)[data/processed/SQLflix_parcial.csv]` | `Tabela única contendo uma linha por cada filme no nosso recorte, informando: código IMDb, título, ano, bilheteria, número de ingressos vendidos, avaliação IMDb, avaliação Metacritic, e seus gêneros.`
 
 ## Bases de Dados
 
