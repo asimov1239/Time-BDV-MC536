@@ -83,7 +83,7 @@ Relação: pertence (gênero × filme).
 | `The Numbers (site)` | `https://www.the-numbers.com/ (Web scraping)` | `Site com útil serviço de dados financeiros sobre filmes.`                                                   |
 
 ## Operações realizadas para a construção do dataset
-
+-   O script [TMDb Checker](previa/src/tmdb-checker/) foi utilizado para interagir com a API do The Movie DB (TMDb) e obter dados sobre os estúdios e, futuramente, o país de origem dos filmes.
 -   O script [TheNumbers.py](src/TheNumbers.py) foi utilizado para realizar webscraping e obter dados sobre as bilheterias dos filmes.
 -   O script [Metacritic.py](src/Metacritic.py) foi utilizado para realizar webscraping e obter dados sobre as avaliações dos filmes.
 -   O notebook [SQL to TSV](notebooks/SQL_to_TSV.ipynb) usa um adaptador Python de SQLite3 para converter arquivos .tsv (tab-separated values) obtidos da API limitada gratuita do IMDb em um arquivo SQL em formato .db. Esses arquivos TSV foram baixados prontos do website do IMDb, contendo informações diversas sobre os filmes.
