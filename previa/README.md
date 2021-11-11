@@ -27,7 +27,7 @@ GÊNERO-FILME: (IMDb ID, gênero)
 ## Dataset Preliminar a ser Publicado
 título do arquivo/base | link | breve descrição
 ----- | ----- | -----
-`SQLflix_parcial.csv` | `(SQLflix parcial)[data/processed/SQLflix_parcial.csv]` | `Tabela única contendo uma linha por cada filme no nosso recorte, informando: código IMDb, título, ano, bilheteria, número de ingressos vendidos, avaliação IMDb, avaliação Metacritic, e seus gêneros.`
+`SQLflix_parcial.csv` | (SQLflix parcial)[data/processed/SQLflix_parcial.PNG] | `Tabela única contendo uma linha por cada filme no nosso recorte, informando: código IMDb, título, ano, bilheteria, número de ingressos vendidos, avaliação IMDb, avaliação Metacritic, e seus gêneros.`
 
 ## Bases de Dados
 
