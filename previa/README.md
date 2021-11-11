@@ -15,12 +15,38 @@ Dataset que integra informações de diversas fontes sobre os 25 filmes com maio
 > ![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpeg)
 
 ## Modelos Lógicos Preliminares
+### Modelo relacional: quatro tabelas
 ~~~
-FILMES: (IMDb ID, filme, ano, orçamento, bilheteria, duração)
-RESENHA-FILME: (IMDb ID, fonte, nota)
-ESTÚDIO-FILME: (IMDb ID, estúdio, país)
-GÊNERO-FILME: (IMDb ID, gênero)
+FILMES: (imdb_id, título, ano, orçamento, bilheteria, número_ingressos_vendidos)
+RESENHA-FILME: (imdb_id, fonte, nota)
+ESTÚDIO-FILME: (imdb_id, estúdio, país)
+GÊNERO-FILME: (imdb_id, gênero)
 ~~~
+
+### Modelo hierárquico: coleção de objetos "filme"
+~~~
+{
+  imdb_id,
+  título,
+  ano,
+  orçamento,
+  bilheteria,
+  número_ingressos_vendidos,
+  resenhas: {
+    fonte,
+    nota
+  },
+  estúdios: {
+    estúdio,
+    país
+  },
+  gêneros: {
+    nome_gênero
+  }
+}
+~~~
+
+
 
 ##### Falta um modelo lógico!!
 
