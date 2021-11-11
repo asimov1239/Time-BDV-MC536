@@ -73,18 +73,12 @@ título da base | link | breve descrição
 `The Numbers (site)` | `https://www.the-numbers.com/ (Web scraping)` | `Site com  útil serviço de dados financeiros sobre filmes.`
 
 ## Operações realizadas para a construção do dataset
-
-> Coloque um link para o arquivo do notebook, programas ou workflows que executam as operações de construção do dataset:
-* extração de dados de fontes não estruturadas como, por exemplo, páginas Web
-* agregação de dados fragmentados obtidos a partir de API
-* integração de dados de múltiplas fontes
-* tratamento de dados
-* transformação de dados para facilitar análise e pesquisa
-
-> Se for notebook, ele estará dentro da pasta `notebook`. Se por alguma razão o código não for executável no Jupyter, coloque na pasta `src`. Se as operações envolverem queries executadas atraves de uma interface de um SGBD não executável no Jupyter, como o Cypher, apresente na forma de markdown.
+* O script [TheNumbers.py](src/TheNumbers.py) foi utilizado para realizar webscraping e obter dados sobre as bilheterias dos filmes.
+* O script [Metacritic.py](src/Metacritic.py) foi utilizado para realizar webscraping e obter dados sobre as avaliações dos filmes.
+* O notebook [SQL to TSV](notebooks/SQL_to_TSV.ipynb) usa um adaptador Python de SQLite3 para converter arquivos .tsv (tab-separated values) obtidos da API limitada gratuita do IMDb em um arquivo SQL em formato .db. Esses arquivos TSV foram baixados prontos do website do IMDb, contendo informações diversas sobre os filmes.
+* O software SQL Server também foi utilizado para importar arquivos CSV e TSV e transformá-los em tabelas SQL. As queries .sql localizadas em [data/interim](data/interim) foram usados para realizar JOINs, criando novas tabelas que consolidassem os dados encontrados nos arquivos CSV e TSV.
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
-
 > Liste aqui as perguntas de pesquisa/análise e respectivas análises.
 > Nem todas as perguntas precisam de queries que as implementam.
 > É possível haver perguntas em que a solução é apenas descrita para
