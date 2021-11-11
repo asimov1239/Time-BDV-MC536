@@ -6,7 +6,7 @@
 * `Victor Durço Gomes Bijos` - `206508`
 
 ## Resumo do Projeto
-Dataset que integra informações de diversas fontes sobre os 25 filmes com maior bilheteria de cada um dos últimos 70 anos, totalizando 1750 filmes. Cada filme está relacionado a gêneros e estúdios, além de ser informado características como ano, avaliação crítica (IMDb e Metacritic), bilhetaria, número de bilhetes vendidos, e código IMDb. O objetivo é permitir maior compreensão do fenômeno cultural do cinema e melhor tomada de decisões sobre produção de filmes.
+Dataset que integra informações de diversas fontes sobre os 25 filmes com maior bilheteria de cada um dos últimos 50 anos, totalizando 1250 filmes. Cada filme está relacionado a gêneros e estúdios, além de ser informado características como ano, avaliação crítica (IMDb e Metacritic), bilhetaria, número de bilhetes vendidos, país de origem, estúdios, e código IMDb. O objetivo é permitir maior compreensão do fenômeno cultural do cinema e melhor tomada de decisões sobre produção de filmes.
 
 ## Slides da Apresentação
 [Link da apresentação (Google Slides)](https://docs.google.com/presentation/d/1Vr6LKrjrr8X0oHr7gW7Hakeil23GS08EE2XSjtrjvOk/)
@@ -17,7 +17,7 @@ Dataset que integra informações de diversas fontes sobre os 25 filmes com maio
 ## Modelos Lógicos Preliminares
 ### Modelo relacional: quatro tabelas
 ~~~
-FILMES: (imdb_id, título, ano, bilheteria, número_ingressos_vendidos)
+FILMES: (imdb_id, título, ano, país, bilheteria, número_ingressos_vendidos)
 RESENHA-FILME: (imdb_id, fonte, nota)
 ESTÚDIO-FILME: (imdb_id, estúdio, país)
 GÊNERO-FILME: (imdb_id, gênero)
@@ -29,6 +29,7 @@ GÊNERO-FILME: (imdb_id, gênero)
   imdb_id,
   título,
   ano,
+  país,
   bilheteria,
   número_ingressos_vendidos,
   resenhas: {
@@ -47,7 +48,7 @@ GÊNERO-FILME: (imdb_id, gênero)
 
 ### Modelo de grafo
 ~~~
-Nódulo: filme (imdb_id: int, título: str, ano: int, bilheteria: int, número_ingressos_vendidos: int)
+Nódulo: filme (imdb_id: int, título: str, ano: int, país: str, bilheteria: int, número_ingressos_vendidos: int)
 Nódulo: resenha (fonte: str, nota: float).
 Nódulo: estúdio (nome: str, país: str).
 Nódulo: gênero (nome: str).
