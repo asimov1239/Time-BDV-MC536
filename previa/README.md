@@ -17,7 +17,7 @@ Dataset que integra informações de diversas fontes sobre os 25 filmes com maio
 ## Modelos Lógicos Preliminares
 ### Modelo relacional: quatro tabelas
 ~~~
-FILMES: (imdb_id, título, ano, orçamento, bilheteria, número_ingressos_vendidos)
+FILMES: (imdb_id, título, ano, bilheteria, número_ingressos_vendidos)
 RESENHA-FILME: (imdb_id, fonte, nota)
 ESTÚDIO-FILME: (imdb_id, estúdio, país)
 GÊNERO-FILME: (imdb_id, gênero)
@@ -29,7 +29,6 @@ GÊNERO-FILME: (imdb_id, gênero)
   imdb_id,
   título,
   ano,
-  orçamento,
   bilheteria,
   número_ingressos_vendidos,
   resenhas: {
@@ -46,14 +45,23 @@ GÊNERO-FILME: (imdb_id, gênero)
 }
 ~~~
 
-
+### Modelo de grafo
+~~~
+Nódulo: filme (imdb_id: int, título: str, ano: int, bilheteria: int, número_ingressos_vendidos: int)
+Nódulo: resenha (fonte: str, nota: float).
+Nódulo: estúdio (nome: str, país: str).
+Nódulo: gênero (nome: str).
+Relação: possui (resenha × filme).
+Relação: pertence (estúdio × filme).
+Relação: pertence (gênero × filme).
+~~~
 
 ##### Falta um modelo lógico!!
 
 ## Dataset Preliminar a ser Publicado
 título do arquivo/base | link | breve descrição
 ----- | ----- | -----
-`SQLflix_parcial.csv` | [SQLflix parcial](data/processed/SQLflix_parcial.PNG) | `Tabela única contendo uma linha por cada filme no nosso recorte, informando: código IMDb, título, ano, bilheteria, número de ingressos vendidos, avaliação IMDb, avaliação Metacritic, e seus gêneros.`
+`SQLflix_parcial.PNG` | [SQLflix parcial](data/processed/SQLflix_parcial.PNG) | `Tabela única contendo uma linha por cada filme no nosso recorte, informando: código IMDb, título, ano, bilheteria, número de ingressos vendidos, avaliação IMDb, avaliação Metacritic, e seus gêneros.`
 
 ## Bases de Dados
 
