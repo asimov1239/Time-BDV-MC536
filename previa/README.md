@@ -9,10 +9,10 @@
 Dataset que integra informações de diversas fontes sobre os 25 filmes com maior bilheteria de cada um dos últimos 70 anos, totalizando 1750 filmes. Cada filme está relacionado a gêneros e estúdios, além de ser informado características como ano, avaliação crítica (IMDb e Metacritic), bilhetaria, número de bilhetes vendidos, e código IMDb. O objetivo é permitir maior compreensão do fenômeno cultural do cinema e melhor tomada de decisões sobre produção de filmes.
 
 ## Slides da Apresentação
-> Link do PDF
+[Link da apresentação (Google Slides)](https://docs.google.com/presentation/d/1Vr6LKrjrr8X0oHr7gW7Hakeil23GS08EE2XSjtrjvOk/)
 
 ## Modelo Conceitual Preliminar
-> ![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpeg)
+![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpeg)
 
 ## Modelos Lógicos Preliminares
 ### Modelo relacional: quatro tabelas
