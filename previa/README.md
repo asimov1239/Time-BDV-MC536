@@ -13,7 +13,7 @@
 
 ## Modelo Conceitual Preliminar
 
-> ![Modelo Conceitual Preliminar](assets/ModeloConceitualPreliminar.jpg)
+> ![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpeg)
 
 ## Modelos Lógicos Preliminares
 
