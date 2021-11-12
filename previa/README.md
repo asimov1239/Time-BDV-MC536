@@ -99,7 +99,14 @@ Relação: pertence (gênero × filme).
 
 ### Pergunta/Análise 1 - Quais estudios mais presentes na produção de filmes de alta bilheteria nos últimos 50 anos?
 
-> Cruzando os seguintes dados que obtivemos: filmes de maiores bilheterias dos ultimos 50 anos, ano de produção, bilheteria e lista de estudios que participaram na produção de cada filme, será possível realizar uma análise de quais estudios dominaram o cenário de alta bilheteria cinematográfica dos últimos anos, podendo ser uma seleção anual ou considerando o período de 50 anos.
+> Através do modelo de grafos, podemos lidar com relacionamentos entre estúdios e filmes. Em específico, a relação (estúdio) -[:produz]-> filme pode nos mostrar a quantidade de filmes produzidos por um estúdio. Assim, podemos contar a quantidade de relações de produção em um nódulo (estúdio) e descobrir os estúdios mais presentes.
+
+```
+MATCH (a)-[:produz]->(b)
+RETURN a, COLLECT(a) as productors
+ORDER BY SIZE(productors) DESC LIMIT 10
+
+```
 
 ### Pergunta/Análise 2 - Quais os filmes com produção de maior colaboração internacional?
 
