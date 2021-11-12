@@ -12,7 +12,7 @@ Dataset que integra informações de diversas fontes sobre os 25 filmes com maio
 
 ## Slides da Apresentação
 
-[Link da apresentação (Google Slides)](https://docs.google.com/presentation/d/1Vr6LKrjrr8X0oHr7gW7Hakeil23GS08EE2XSjtrjvOk/)
+[Link da apresentação (Google Slides)](slides/prévia_slides.pdf)
 
 ## Modelo Conceitual Preliminar
 
@@ -91,11 +91,6 @@ Relação: pertence (gênero × filme).
 -   O software SQL Server também foi utilizado para importar arquivos CSV e TSV e transformá-los em tabelas SQL. As queries .sql localizadas em [data/interim](data/interim) foram usados para realizar JOINs, criando novas tabelas que consolidassem os dados encontrados nos arquivos CSV e TSV.
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
-
-> Liste aqui as perguntas de pesquisa/análise e respectivas análises.
-> Nem todas as perguntas precisam de queries que as implementam.
-> É possível haver perguntas em que a solução é apenas descrita para
-> demonstrar o potencial da base.
 
 ### Pergunta/Análise 1 - Quais estudios mais presentes na produção de filmes de alta bilheteria nos últimos 50 anos?
 
