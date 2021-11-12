@@ -92,9 +92,9 @@ Relação: pertence (gênero × filme).
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
-### Pergunta/Análise 1 - Quais estudios mais presentes na produção de filmes de alta bilheteria nos últimos 50 anos?
+* Pergunta/Análise 1: Modelo de Grafos - Quais os estudios mais presentes na produção de filmes de alta bilheteria nos últimos 50 anos?
 
-> Através do modelo de grafos, podemos lidar com relacionamentos entre estúdios e filmes. Em específico, a relação (estúdio) -[:produz]-> filme pode nos mostrar a quantidade de filmes produzidos por um estúdio. Assim, podemos contar a quantidade de relações de produção em um nódulo (estúdio) e descobrir os estúdios mais presentes.
+Através do modelo de grafos, podemos lidar com relacionamentos entre estúdios e filmes. Em específico, a relação (estúdio) -[:produz]-> filme pode nos mostrar a quantidade de filmes produzidos por um estúdio. Assim, podemos contar a quantidade de relações de produção em um nódulo (estúdio) e descobrir os estúdios mais presentes. Abaixo, apresentamos uma query em Cypher para obter essa resposta.
 
 ```
 MATCH (a)-[:produz]->(b)
@@ -102,13 +102,13 @@ RETURN a, COLLECT(a) as productors
 ORDER BY SIZE(productors) DESC LIMIT 10
 ```
 
-### Pergunta/Análise 2 - Quais os filmes com produção de maior colaboração internacional?
+* Pergunta/Análise 2: Modelo Hierárquico - Quais os filmes com produção de maior colaboração internacional?
 
-> Na constituição dos dados do nosso dataset cruzamos informações vindas da api do "The Movie Database", do qual obtemos json com os estudios que participaram na produção de cada filme e o país de origem de cada estudio. Dessa forma será possível percorrer os objetos dos filmes e quantificar quais filmes possuem uma maior quantidade de países diferentes dentro da propriedade estudios de produção.
+Na construção de nosso dataset, cruzamos informações vindas da API do The Movie Database (TMDB), do qual obtemos arquivos JSON informando os estúdios que participaram na produção de cada filme, junto com o país de origem de cada estúdio. Dessa forma, será possível percorrer cada um de nossos objetos JSON (correspondentes cada um a um filme) e quantificar quais filmes possuem uma maior quantidade de países diferentes dentro de sua lista interna de estúdios de produção.
 
-### Pergunta/Análise 3 - Qual a evolução temporal da quantidade de ingressos média dos filmes de maior sucesso ao longo dos anos?
+* Pergunta/Análise 3: Modelo Relacional - Qual a evolução temporal da quantidade de ingressos média dos filmes de maior sucesso ao longo dos anos?
 
-> Com o modelo relacional é fácil obter dados para essa questão. Em primeiro lugar, basta adquirir uma média da bilheteria nominal, depois agrupar todos os filmes conforme o ano em que foram lançados. Enfim, ordená-los pelo ano para observar a mudança no valor da média.
+Agrupando a tabela de filmes por ano, podemos contar a média da bilheteria nominal para cada ano. Ao ordenar a tabela pelo ano, obtém-se a série temporal da bilheteria nominal média. Abaixo, apresentamos uma query em SQL para obter essa série.
 
 ```
 SELECT AVG(boxOffice), year
