@@ -108,7 +108,7 @@ Relação: pertence (gênero × filme).
 
 > Qual a evolução temporal da quantidade de ingressos média dos filmes de maior sucesso ao longo dos anos?
 
-> Com o modelo relacional é fácil obter dados para essa questão. Em primeiro lugar, basta adquirir uma média da bilheteria nominal, depois agrupar todos os filmes conforme o ano em que foram lançados. Enfim, ordená-los pelo ano para observar a mudança no valor da média.
+Com o modelo relacional é fácil obter dados para essa questão. Em primeiro lugar, basta adquirir uma média da bilheteria nominal, depois agrupar todos os filmes conforme o ano em que foram lançados. Enfim, ordená-los pelo ano para observar a mudança no valor da média.
 
 ```
 SELECT AVG(boxOffice), year
