@@ -83,6 +83,7 @@ Relação: pertence (gênero × filme).
 | `The Numbers (site)` | `https://www.the-numbers.com/ (Web scraping)` | `Site com útil serviço de dados financeiros sobre filmes.`                                                   |
 
 ## Operações realizadas para a construção do dataset
+
 -   O script [TMDb Checker](src/tmdb-checker) foi utilizado para interagir com a API do The Movie DB (TMDb) e obter dados sobre os estúdios e, futuramente, o país de origem dos filmes.
 -   O script [TheNumbers.py](src/TheNumbers.py) foi utilizado para realizar webscraping e obter dados sobre as bilheterias dos filmes.
 -   O script [Metacritic.py](src/Metacritic.py) foi utilizado para realizar webscraping e obter dados sobre as avaliações dos filmes.
@@ -96,19 +97,17 @@ Relação: pertence (gênero × filme).
 > É possível haver perguntas em que a solução é apenas descrita para
 > demonstrar o potencial da base.
 
-### Pergunta/Análise 1
+### Pergunta/Análise 1 - Quais estudios mais presentes na produção de filmes de alta bilheteria nos últimos 50 anos?
 
-> Quais estudios mais presentes na produção de filmes de alta bilheteria nos últimos 50 anos?
+> Cruzando os seguintes dados que obtivemos: filmes de maiores bilheterias dos ultimos 50 anos, ano de produção, bilheteria e lista de estudios que participaram na produção de cada filme, será possível realizar uma análise de quais estudios dominaram o cenário de alta bilheteria cinematográfica dos últimos anos, podendo ser uma seleção anual ou considerando o período de 50 anos.
 
-### Pergunta/Análise 2
+### Pergunta/Análise 2 - Quais os filmes com produção de maior colaboração internacional?
 
-> Qual a evolução temporal da bilheteria nominal média dos filmes de maior sucesso ao longo dos anos?
+> Na constituição dos dados do nosso dataset cruzamos informações vindas da api do "The Movie Database", do qual obtemos json com os estudios que participaram na produção de cada filme e o país de origem de cada estudio. Dessa forma será possível percorrer os objetos dos filmes e quantificar quais filmes possuem uma maior quantidade de países diferentes dentro da propriedade estudios de produção.
 
-### Pergunta/Análise 3
+### Pergunta/Análise 3 - Qual a evolução temporal da quantidade de ingressos média dos filmes de maior sucesso ao longo dos anos?
 
-> Qual a evolução temporal da quantidade de ingressos média dos filmes de maior sucesso ao longo dos anos?
-
-Com o modelo relacional é fácil obter dados para essa questão. Em primeiro lugar, basta adquirir uma média da bilheteria nominal, depois agrupar todos os filmes conforme o ano em que foram lançados. Enfim, ordená-los pelo ano para observar a mudança no valor da média.
+> Com o modelo relacional é fácil obter dados para essa questão. Em primeiro lugar, basta adquirir uma média da bilheteria nominal, depois agrupar todos os filmes conforme o ano em que foram lançados. Enfim, ordená-los pelo ano para observar a mudança no valor da média.
 
 ```
 SELECT AVG(boxOffice), year
