@@ -105,7 +105,6 @@ Relação: pertence (gênero × filme).
 MATCH (a)-[:produz]->(b)
 RETURN a, COLLECT(a) as productors
 ORDER BY SIZE(productors) DESC LIMIT 10
-
 ```
 
 ### Pergunta/Análise 2 - Quais os filmes com produção de maior colaboração internacional?
