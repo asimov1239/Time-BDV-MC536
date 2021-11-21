@@ -84,7 +84,82 @@ Relação: pertence (gênero × filme).
 
 ## Detalhamento do Projeto
 
+Duas formas principais foram utilizadas para coletar dados para o projeto:  *webscraping* e acesso de *API*.
+#### Webscraping
+Como regra geral para webscraping, usamos a linguagem Python junto com a biblioteca *BeautifulSoup* para escanear o arquivo html de uma webpage até encontrar a informação necessária.
+
+~~~ python
+import requests
+from bs4 import BeautifulSoup
+~~~~
+
+#### TheNumbers.py
+Para o arquivo [TheNumbers.py](src/TheNumbers.py), foi utilizado uma estratégia de rotacionar entre os diversos sites para descobrir a lista de filmes dos últimos cinquenta anos, junto com suas respectivas informações de bilheteria e número de ingressos.
+
+~~~ python
+year = 2021
+# Essas próximas três linhas são utilizadas para armazenar o conteúdo html de um site em um elemento 'soup' 
+url_list = "https://www.the-numbers.com/market/" + str(year) + "/top-grossing-movies"
+response_list = requests.get(url_list)
+soup = BeautifulSoup(response_list.content, "html.parser")
+~~~~
+Através do elemento gerado por *soup*, adquirimos toda a informação necessária e depois fazemos um loop diminuindo o valor: 
+~~~ python 
+for i in range(50) 
+    year = 2021 - i
+    get_data()
+~~~
+Onde *get_data()* pode ser substituida pelos elementos que se deseja obter do html. Foi necessário um segundo degrau de webscraping para coletar o nome dos filmes, isso aconteceu devido à alguns erros com relação a filmes de nomes muito grandes com reticências no final. Os nomes acabavam ficando na forma de "Missão Impossível: A ..."
+
+Então, bastou uma outra váriavel para armazenar o url de um site com o efetivo nome completo do filme.
+~~~ python
+# A string str(j['href']) possui o formato "movie/nome-do-filme#tab=box-office"
+url_movie = "https://www.the-numbers.com" + str(j['href'])
+response_movie = requests.get(url_movie)
+soup_movie = BeautifulSoup(response_movie.content, "html.parser")
+# Encontrar o nome do filme e transformar em text:
+movie_name = soup_movie.find("h1")
+movie_name = movie_name.text[0: len(movie_name) - 7]
+~~~
+
+Perfeito, agora é fácil escrever todas as informações coletadas em um arquivo csv.
+
+~~~python
+# Abrir um arquivo novo e armazenar o objeto csv.writer
+file = open("list.csv", "a", newline="", encoding="utf-8")
+writer = csv.writer(file)
+(...)
+# Usamos a função tuple_add para adicionar todas as informações coletadas na variável tupla e escrever essa váriavel no arquivo
+tupla = tuple_add(tupla, year, movie_name, budget, number_tickets)
+writer.writerow(tupla)
+(...)
+# Enfim, fechar o arquivo
+file.close()
+~~~
+
+#### Metacritic.py
+
+*falta escrever o metacritic.py*
+
+####  TMDb Checker 
+
+*falta escrever o TMDB Checker*
+
 ## Evolução do Projeto
+
+O projeto SQLflix foi selecionado dentre algumas idéias por ser o mais interessante e moderno das opções. É muito dificil hoje em dia não se envolver no gigante mercado cinematográfico como consumidor.
+
+A ideia de início não passava de um relacionamento entre filme e bilheteria, procurando analisar o crescimento deles nos últimos cinquenta anos. Foi feito um modelo conceitual básico, o qual foi apresentado para o orientador e acrescentado múltiplas ideias. A possível interação entre número de ingressos vendidos, gênero do filme, produções foi levada em consideração.
+
+Encontrar fontes de dados no início pareceu trivial, contudo a complexidade tornou a crescer. O nível de experiência do grupo em coleta de dados era limitado, então logo aprendemos que nem toda fonte de dados poderia ser gratuita e apenas amostras seriam esperadas na forma de API's.
+
+O próprio site do IMDB nos garantiu apenas uma porção dos dados, enquanto o gratuito API da TMDB nos forneceu uma boa quantidade com algumas informações perdidas.
+
+A ideia de um Webscraping surgiu como opção para conseguir as informações sobre bilheteria e número de ingressos vendidos, além de uma segunda opção de review do Metacritic. Estudamos algumas bibliotecas do Python e conseguimos rodar algoritmos para coletar os dados.
+
+Depois disso, bastava construir efetivamente o modelo relacional. Testamos diversos softwares para construir as tabelas SQL, enfim chegamos à conclusão de que o Microsoft SQL Server era a melhor opção para se seguir. Unindo todos os dados coletados, conseguimos os elementos CSV para converter tudo em SQL no software.
+
+
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
