@@ -67,11 +67,13 @@ Relação: pertence (gênero × filme).
 
 ##### Falta um modelo lógico!!
 
-## Datas Publicado
+## Dataset
 
 | título do arquivo/base | link                                                  | breve descrição                                                                                                                                                                                          |
 | ---------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SQLflix_parcial.PNG`  | [SQLflix parcial](data/processed/SQLflix_parcial.PNG) | `Tabela única contendo uma linha por cada filme no nosso recorte, informando: código IMDb, título, ano, bilheteria, número de ingressos vendidos, avaliação IMDb, avaliação Metacritic, e seus gêneros.` |
+| `SQLflix.jpeg`  | [SQLflix](data/processed/films_table.csv) | `Tabela única contendo uma linha por cada filme no nosso recorte, informando: código IMDb, título, ano, bilheteria, número de ingressos vendidos, avaliação IMDb, avaliação Metacritic, box office ajustado e número de tickets ajustado.` |
+
+![SQLflix](data/processed/SQLflix.jpeg)
 
 ## Bases de Dados
 
