@@ -16,4 +16,4 @@ for line in splitlines:
 		df = df.append(pd.DataFrame({'imdb_id': _id, 'genre': genre}, index=[idx]))
 		idx += 1
 
-df.to_csv('genres_table.csv', index=False)
+df.to_csv('../data/processed/genres_table.csv', index=False)
