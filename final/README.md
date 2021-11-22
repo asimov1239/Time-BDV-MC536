@@ -85,7 +85,7 @@ Relação: pertence (gênero × filme).
 ## Detalhamento do Projeto
 
 Duas formas principais foram utilizadas para coletar dados para o projeto:  *webscraping* e acesso de *API*.
-#### Webscraping
+### Webscraping
 Como regra geral para webscraping, usamos a linguagem Python junto com a biblioteca *BeautifulSoup* para escanear o arquivo html de uma webpage até encontrar a informação necessária.
 
 ~~~ python
@@ -93,7 +93,7 @@ import requests
 from bs4 import BeautifulSoup
 ~~~~
 
-#### TheNumbers.py
+### TheNumbers.py
 Para o arquivo [TheNumbers.py](src/TheNumbers.py), foi utilizado uma estratégia de rotacionar entre os diversos sites para descobrir a lista de filmes dos últimos cinquenta anos, junto com suas respectivas informações de bilheteria e número de ingressos.
 
 ~~~ python
@@ -137,13 +137,21 @@ writer.writerow(tupla)
 file.close()
 ~~~
 
-#### Metacritic.py
-
+### Metacritic.py
 *falta escrever o metacritic.py*
 
-####  TMDb Checker 
-
+###  TMDb Checker 
 *falta escrever o TMDB Checker*
+
+### Inflação
+
+Para o ajuste da inflação, encontramos um site que contenha alguns dados para nos ajudar no cálculo: https://www.macrotrends.net/countries/USA/united-states/inflation-rate-cpi
+
+Utilizamos o ano de 1972 como refêrencia e obtemos a inflação acumulada para os próximos cinquenta anos. Com cada um desses valores prontos, podemos dividir o *box-office* do ano pela inflação acumulada e descobrir o valor em comparação ao ano de 1972.
+
+![Imagem da Inflaçao](assets/united-states-inflation.png)
+
+
 
 ## Evolução do Projeto
 
