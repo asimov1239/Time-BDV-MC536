@@ -1,6 +1,6 @@
 import pandas as pd
 
-file = open('ratings_titles_genres_boxoffice_metacritic.csv')
+file = open('../data/interim/ratings_titles_genres_boxoffice_metacritic.csv')
 lines = file.readlines()
 
 splitlines = list()
