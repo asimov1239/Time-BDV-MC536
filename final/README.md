@@ -78,7 +78,7 @@ Relação: pertence (gênero × filme).
 | título da base       | link                                          | breve descrição                                                                                              |
 | -------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | `The Movie Database` | `https://www.themoviedb.org/ (API)`           | `O Movie Database (TMDB) é um banco de dados popular e editável pelo usuário para filmes e programas de TV.` |
-| `IMDB Database`      | `https://www.imdb.com/ (API)`                 | `API oficial do IMDB (com grandes restrições de uso)`                                                        |
+| `IMDB Database`      | `https://datasets.imdbws.com/ (API)`                 | `API oficial do IMDB (com grandes restrições de uso)`                                                        |
 | `Metacritic (site)`  | `https://www.metacritic.com/ (Web scraping)`  | `Popular site para reviews de jogos, filmes e séries`                                                        |
 | `The Numbers (site)` | `https://www.the-numbers.com/ (Web scraping)` | `Site com útil serviço de dados financeiros sobre filmes.`                                                   |
 
