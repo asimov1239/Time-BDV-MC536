@@ -1,6 +1,9 @@
 * [TMDb Checker](tmdb-checker)
 Em JavaScript, sa a API do TMDB para obter informações sobre os estúdios que produziram os filmes, com seus respectivos países de origem.
 
+* [create_hierarchical_dataset.py]
+Cria versão hierárquica (em JSON) de nosso *dataset*, que originalmente está em formato tabular.
+
 * [films_table_inflation_corrected.py](films_table_inflation_corrected.py)
 Adiciona duas colunas à tabela [FILMS](../data/processed/films_table.csv), produzindo assim a sua versão final. Primeiro, corrige a bilheteria pela inflação acumulada do dólar americano, como descrito no item abaixo. Segundo, calcula o preço unitário real (corrigido pela inflação) dos ingressos daquele filme.
 
