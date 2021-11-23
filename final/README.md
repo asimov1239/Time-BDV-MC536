@@ -95,17 +95,13 @@ Relação: belongs (genre × film).
 
 ## Detalhamento do Projeto
 
-Duas formas principais foram utilizadas para coletar dados para o projeto:  *webscraping* e acesso de *API*.
-### Webscraping
-Como regra geral para webscraping, usamos a linguagem Python junto com a biblioteca *BeautifulSoup* para escanear o arquivo html de uma webpage até encontrar a informação necessária.
+Nesta seção, detalharemos nosso projeto duas etapas. Na primeira etapa, detalharemos nossos esforços nas duas formas principais foram utilizadas para coletar dados para o projeto: *webscraping* e acesso de *API*. Na segunda etapa, explicaremos como transformamos esses dados com scripts Python e SQL para obter nossas tabelas finais. Todos os programas para coleta e tratamento de dados podem ser encontrados [aqui](src), enquanto os *datasets* finais estão [neste diretório](data/processed).
 
-~~~ python
-import requests
-from bs4 import BeautifulSoup
-~~~~
+### Webscrapings
+Criamos e executamos dois scripts de *webscraping*, ambos escritos em Python e utilizando as bibliotecas *requests* e *BeautifulSoup*. A primeira biblioteca envia um HTTP Request GET para uma URL escolhida à mão do *website* desejado, enquanto a segunda biblioteca analisa o HTML retornado para encontrar alguma informação desejada. Por vezes, essa informação se trata de outra URL do mesmo *website*, e neste caso a biblioteca *requests* é usada novamente com esta nova URL.
 
-### TheNumbers.py
-Para o arquivo [TheNumbers.py](src/TheNumbers.py), foi utilizado uma estratégia de rotacionar entre os diversos sites para descobrir a lista de filmes dos últimos cinquenta anos, junto com suas respectivas informações de bilheteria e número de ingressos.
+#### get_thenumbers.py (Webscraping 1)
+[Neste script](src/get_thenumbers.py), foi utilizado uma estratégia de rotacionar entre os diversos sites para descobrir a lista de filmes dos últimos cinquenta anos, junto com suas respectivas informações de bilheteria e número de ingressos.
 
 ~~~ python
 year = 2021
@@ -148,11 +144,13 @@ writer.writerow(tupla)
 file.close()
 ~~~
 
-### Metacritic.py
+#### Metacritic.py (Webscraping 2)
 *falta escrever o metacritic.py*
 
-###  TMDb Checker 
+####  TMDb Checker (Webscraping 3)
 *falta escrever o TMDB Checker*
+
+### APIs
 
 ### Inflação
 
