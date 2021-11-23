@@ -8,11 +8,11 @@
 
 ## Resumo do Projeto
 
-Dataset que integra informações de diversas fontes sobre os 25 filmes com maior bilheteria de cada um dos últimos 50 anos, totalizando 1250 filmes. Cada filme está relacionado a gêneros e estúdios, além de ser informado características como ano, avaliação crítica (IMDb e Metacritic), bilhetaria, número de bilhetes vendidos, país de origem, estúdios, e código IMDb. O objetivo é permitir maior compreensão do fenômeno cultural do cinema e melhor tomada de decisões sobre produção de filmes.
+Dataset relacional que integra informações de diversas fontes sobre os 25 filmes com maior bilheteria de cada um dos últimos 50 anos (1972-2021), totalizando um escopo inicial de 1250 filmes. Cada filme está associado a características como código IMDb, ano, avaliação crítica (IMDb e Metacritic), e bilheteria em solo americano corrigida por inflação. Ademais, o dataset possui tabelas relacionando filmes a seus gêneros e aos estúdios que os produziram. Como as perguntas de análise indicarão, o objetivo do dataset é permitir tanto maior compreensão do fenômeno cultural do cinema quanto melhor tomada de decisões sobre a produção de filmes.
 
 ## Slides da Apresentação
 
-[Link da apresentação (Google Slides)](slides/prévia_slides.pdf)
+[Link da apresentação (Google Slides)](slides/final_slides.pdf)
 
 ## Modelo Conceitual Preliminar
 
@@ -23,10 +23,10 @@ Dataset que integra informações de diversas fontes sobre os 25 filmes com maio
 ### Modelo relacional: quatro tabelas
 
 ```
-FILMES: (imdb_id, título, ano, país, bilheteria, número_ingressos_vendidos)
-RESENHA-FILME: (imdb_id, fonte, nota)
-ESTÚDIO-FILME: (imdb_id, estúdio, país)
-GÊNERO-FILME: (imdb_id, gênero)
+FILMS: (imdb_id, title, imdb_rating, metacritic_rating, year, boxOffice, numTickets, boxOfficeAdjusted, ticketPriceAdjusted)
+REVIEWS: (imdb_id, source, rating)
+STUDIOS: (imdb_id, studio, country)
+GENRES: (imdb_id, genre)
 ```
 
 ### Modelo hierárquico: coleção de objetos "filme"
@@ -34,21 +34,22 @@ GÊNERO-FILME: (imdb_id, gênero)
 ```
 {
   imdb_id,
-  título,
-  ano,
-  país,
-  bilheteria,
-  número_ingressos_vendidos,
-  resenhas: {
-    fonte,
-    nota
+  title,
+  year,
+  boxOffice,
+  numTickets,
+  boxOfficeAdjusted,
+  ticketPriceAdjusted,
+  reviews: {
+    source,
+    rating
   },
-  estúdios: {
-    estúdio,
-    país
+  studios: {
+    studio,
+    country
   },
-  gêneros: {
-    nome_gênero
+  genres: {
+    genre
   }
 }
 ```
@@ -56,16 +57,14 @@ GÊNERO-FILME: (imdb_id, gênero)
 ### Modelo de grafo
 
 ```
-Nódulo: filme (imdb_id: int, título: str, ano: int, país: str, bilheteria: int, número_ingressos_vendidos: int)
-Nódulo: resenha (fonte: str, nota: float).
-Nódulo: estúdio (nome: str, país: str).
-Nódulo: gênero (nome: str).
-Relação: possui (resenha × filme).
-Relação: pertence (estúdio × filme).
-Relação: pertence (gênero × filme).
+Nódulo: film (imdb_id: int, title: str, year: int, boxOffice: int, numTickets: int, boxOfficeAdjusted: float, ticketsPriceAdjusted: float)
+Nódulo: review (source: str, rating: float).
+Nódulo: studio (studio: str, country: str).
+Nódulo: genre (genre: str).
+Relação: has (review × film).
+Relação: belongs (studio × film).
+Relação: belongs (genre × film).
 ```
-
-##### Falta um modelo lógico!!
 
 ## Dataset
 
