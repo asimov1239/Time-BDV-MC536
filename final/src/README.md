@@ -1,7 +1,7 @@
 * [TMDb Checker](tmdb-checker)
 Em JavaScript, sa a API do TMDB para obter informações sobre os estúdios que produziram os filmes, com seus respectivos países de origem.
 
-* [create_hierarchical_dataset.py]
+* [create_hierarchical_dataset.py](create_hierarchical_dataset.py)
 Cria versão hierárquica (em JSON) de nosso *dataset*, que originalmente está em formato tabular.
 
 * [films_table_inflation_corrected.py](films_table_inflation_corrected.py)
