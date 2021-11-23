@@ -95,7 +95,7 @@ Relação: belongs (genre × film).
 
 ## Detalhamento do Projeto
 
-Nesta seção, detalharemos nosso projeto duas etapas. Na primeira etapa, detalharemos nossos esforços nas duas formas principais foram utilizadas para coletar dados para o projeto: *webscraping* e acesso de *API*. Na segunda etapa, explicaremos como transformamos esses dados com scripts Python e SQL para obter nossas tabelas finais. Todos os programas para coleta e tratamento de dados podem ser encontrados [aqui](src), enquanto os *datasets* finais estão [neste diretório](data/processed).
+Nesta seção, detalharemos nosso projeto duas etapas. Na primeira etapa, detalharemos nossos esforços nas duas formas principais foram utilizadas para coletar dados para o projeto: *webscraping* e acesso de *API*. Na segunda etapa, explicaremos como transformamos esses dados com scripts Python e SQL para obter nossas tabelas finais. Todos os programas para coleta e tratamento de dados podem ser encontrados [aqui](src), enquanto os *datasets* finais estão [neste diretório](data/processed). Mais detalhes sobre *webscraping* constam na seção "Evolução do Projeto" do presente documento.
 
 ### Webscrapings
 Criamos e executamos dois scripts de *webscraping*, ambos escritos em Python e utilizando as bibliotecas *requests* e *BeautifulSoup*. A primeira biblioteca envia um HTTP GET request para uma URL escolhida à mão do *website* desejado, enquanto a segunda biblioteca analisa o HTML retornado para encontrar alguma informação desejada. Por vezes, essa informação se trata de outra URL do mesmo *website*, e neste caso a biblioteca *requests* é usada novamente com esta nova URL.
@@ -159,13 +159,17 @@ def get_metascore(movie_name):
 ~~~
 
 ### APIs
-*falta escrever intro*
+APIs atuam como interfaces, permitindo que elementos externos interajamc com objetos ignorando sua instrura interna. Neste caso, sem saber o modelo lógico dos bancos de dados *online* com os quais estamos interagindo, escrevemos códigos que interagem com as APIs desses bancos de dados, obtendo informações vitais para a construção de nosso *dataset*. Interagimos com duas APIs, usando respectivamente JavaScript e Python. Mais detalhes sobre *APIs* constam na seção "Evolução do Projeto" do presente documento.
 
 ####  TMDb Checker (API 1)
 *falta escrever o TMDB Checker*
 
 #### IMDb (API 2)
-*falta escrever o IMDb*
+Esta se trata de uma *API* apenas em um sentido estendido, e nos referimos a isso como *API* apenas porque os organizadores do IMDb se referiram a isso como tal em comunicação privada via *e-mail*. Trata-se de arquivos TSV prontos que resumem, de forma limitada, informações que estão dispersas no vasto banco de dados do IMDb. Ao permitir uma interação simplificada com tal banco de dados, temos uma *API* no sentido estendido.
+
+Nosso trabalho constitiu em selecionar os arquivos TSV que nos interessavam. Em um primeiro momento, nós criamos um [notebook](notebooks) que importava o arquivo TSV e o inseria, linha a linha, em uma tabela SQL criada no mesmo notebook. Depois descobrimos que o próprio Microsoft SQL Server Management Studio (MS SSMS) possui uma ferramenta interna de importar arquivos de formato TSC e CSV e construir tabelas a partir deles, de modo que o trabalho do notebook não foi aproveitado.
+
+Os dados que aproveitamos dessa *API* são: os códigos IMDb de nossos 1250 filmes, seu ano de lançamento, sua avaliação IMDb, e sua lista de gêneros. Suas avaliações IMDb foram inseridas na tabela [REVIEWS](data/processed/reviews_table.csv) por meio [deste script](src/make_reviews_table.py), e suas listas de gêneros foram desmembradas na tabela [GENRES](data/processed/genres_table.csv) por meio [deste script](src/make_genres_table.py), sendo todos os filmes identificados pelos seus códigos IMDb em todas as nossas quatro [tabelas finais](data/processed). Seu ano de lançamento foi aproveitado na tabela [FILMS](data/processed/films_table.csv), cuja criação se deu mediante JOINs SQL descritos abaixo.
 
 ### Tratamento de dados
 *falta escrever intro*
