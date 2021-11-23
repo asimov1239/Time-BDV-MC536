@@ -100,7 +100,7 @@ Nesta seção, detalharemos nosso projeto duas etapas. Na primeira etapa, detalh
 ### Webscrapings
 Criamos e executamos dois scripts de *webscraping*, ambos escritos em Python e utilizando as bibliotecas *requests* e *BeautifulSoup*. A primeira biblioteca envia um HTTP Request GET para uma URL escolhida à mão do *website* desejado, enquanto a segunda biblioteca analisa o HTML retornado para encontrar alguma informação desejada. Por vezes, essa informação se trata de outra URL do mesmo *website*, e neste caso a biblioteca *requests* é usada novamente com esta nova URL.
 
-#### get_thenumbers.py (Webscraping 1)
+#### The Numbers (Webscraping 1)
 [Neste script](src/get_thenumbers.py), foi utilizado uma estratégia de rotacionar entre os diversos sites para descobrir a lista de filmes dos últimos cinquenta anos, junto com suas respectivas informações de bilheteria e número de ingressos.
 
 ~~~ python
@@ -144,23 +144,32 @@ writer.writerow(tupla)
 file.close()
 ~~~
 
-#### Metacritic.py (Webscraping 2)
+#### Metacritic (Webscraping 2)
 *falta escrever o metacritic.py*
 
-####  TMDb Checker (Webscraping 3)
+### APIs
+*falta escrever intro*
+
+####  TMDb Checker (API 1)
 *falta escrever o TMDB Checker*
 
-### APIs
+#### IMDb (API 2)
+*falta escrever o IMDb*
 
-### Inflação
+### Tratamento de dados
+*falta escrever intro*
+
+#### JOINs em SQL (Tratamento 1)
+*falta escrever o SQL Joins*
+
+#### Correção pela Inflação (Tratamento 2)
+*falta revisar*
 
 Para o ajuste da inflação, encontramos um site que contenha alguns dados para nos ajudar no cálculo: https://www.macrotrends.net/countries/USA/united-states/inflation-rate-cpi
 
 Utilizamos o ano de 1972 como refêrencia e obtemos a inflação acumulada para os próximos cinquenta anos. Com cada um desses valores prontos, podemos dividir o *box-office* do ano pela inflação acumulada e descobrir o valor em comparação ao ano de 1972.
 
 ![Imagem da Inflaçao](assets/united-states-inflation.png)
-
-
 
 ## Evolução do Projeto
 
