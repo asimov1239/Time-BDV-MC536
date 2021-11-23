@@ -4,4 +4,4 @@
 | `STUDIOS`  | [STUDIOS](studios_table.csv) | `Tabela contendo uma linha para cada estúdio que participou da produção de um filme em nosso recorte, informando: código IMDb do filme, nome do estúdio, e país do estúdio.` |
 | `REVIEWS`  | [REVIEWS](reviews_table.csv) | `Tabela contendo uma linha para cada resenha, dentre avaliações IMDb e Metacritic (mas isso é expansível no futuro), de cada filme em nosso recorte, informando: código IMDb do filme, fonte da resenha, e nota não-normalizada.` |
 | `GENRES`  | [GENRES](genres_table.csv) | `Tabela contendo uma linha para cada gênero de cada filme em nosso recorte, informando: código IMDb do filme e o nome do gênero.` |
-| `JSON`  | [JSON](hierarchical_model.csv) | `Arquivo JSON contendo a versão hierárquica de nosso *dataset* completo.` |
+| `JSON`  | [JSON](hierarchical_model.json) | `Arquivo JSON contendo a versão hierárquica de nosso *dataset* completo.` |
