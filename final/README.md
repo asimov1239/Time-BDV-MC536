@@ -14,7 +14,7 @@ Dataset relacional que integra informações de diversas fontes sobre os 25 film
 
 [Link da apresentação (Google Slides)](slides/final_slides.pdf)
 
-## Modelo Conceitual Preliminar
+## Modelo Conceitual
 
 ![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpeg)
 
@@ -251,6 +251,7 @@ FROM (
 	FROM Test.dbo.ratings_titles_genres t1, Test.dbo.titles_boxoffice t2
 	WHERE t1.primaryTitle = t2.column2
 	AND CONVERT(nvarchar(max), t1.startYear) = CONVERT(nvarchar(max), t2.column1)
+	) t3;
 ~~~
 
 #### Correção pela Inflação (Tratamento 2)
