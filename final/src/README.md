@@ -2,9 +2,11 @@
 Em JavaScript, sa a API do TMDB para obter informações sobre os estúdios que produziram os filmes, com seus respectivos países de origem.
 
 * [films_table_inflation_corrected.py](films_table_inflation_corrected.py)
+Adiciona duas colunas à tabela [FILMS](../data/processed/films_table.csv), produzindo assim a sua versão final. Primeiro, corrige a bilheteria pela inflação acumulada do dólar americano, como descrito no item abaixo. Segundo, calcula o preço unitário real (corrigido pela inflação) dos ingressos daquele filme.
 
 * [get_accumulated_inflation.py](get_accumulated_inflation.py)
- 
+Obtém a inflação acumulada ano-a-ano do dólar americano, tomando o ano de 1972 como base, a partir [deste dataset](https://www.macrotrends.net/countries/USA/united-states/inflation-rate-cpi).
+
 * [get_metacritic.py](get_metacritic.py)
 Usa *webscraping* para pequisar os filmes e obter suas avaliações Metacritic, caso haja.
 
