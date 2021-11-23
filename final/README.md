@@ -77,7 +77,7 @@ Relação: belongs (genre × film).
 
 ![Films](assets/films_sample.png)
 
-![Studios](assets/studio_sample.png)
+![Studios](assets/studios_sample.png)
 
 ![Reviews](assets/reviews_sample.png)
 
