@@ -167,22 +167,47 @@ APIs atuam como interfaces, permitindo que elementos externos interajamc com obj
 #### IMDb (API 2)
 Esta se trata de uma *API* apenas em um sentido estendido, e nos referimos a isso como *API* apenas porque os organizadores do IMDb se referiram a isso como tal em comunicação privada via *e-mail*. Trata-se de arquivos TSV prontos que resumem, de forma limitada, informações que estão dispersas no vasto banco de dados do IMDb. Ao permitir uma interação simplificada com tal banco de dados, temos uma *API* no sentido estendido.
 
-Nosso trabalho constitiu em selecionar os arquivos TSV que nos interessavam. Em um primeiro momento, nós criamos um [notebook](notebooks) que importava o arquivo TSV e o inseria, linha a linha, em uma tabela SQL criada no mesmo notebook. Depois descobrimos que o próprio Microsoft SQL Server Management Studio (MS SSMS) possui uma ferramenta interna de importar arquivos de formato TSC e CSV e construir tabelas a partir deles, de modo que o trabalho do notebook não foi aproveitado.
+Nosso trabalho constitiu em selecionar os arquivos TSV que nos interessavam. Em um primeiro momento, nós criamos um [notebook](notebooks) que importava o arquivo TSV e o inseria, linha a linha, em uma tabela SQL criada no mesmo notebook. Depois descobrimos que o próprio Microsoft SQL Server Management Studio (MS SSMS) possui uma ferramenta interna de importar arquivos de formato TSV e CSV e construir tabelas a partir deles, de modo que o trabalho do notebook não foi aproveitado.
 
 Os dados que aproveitamos dessa *API* são: os códigos IMDb de nossos 1250 filmes, seu ano de lançamento, sua avaliação IMDb, e sua lista de gêneros. Suas avaliações IMDb foram inseridas na tabela [REVIEWS](data/processed/reviews_table.csv) por meio [deste script](src/make_reviews_table.py), e suas listas de gêneros foram desmembradas na tabela [GENRES](data/processed/genres_table.csv) por meio [deste script](src/make_genres_table.py), sendo todos os filmes identificados pelos seus códigos IMDb em todas as nossas quatro [tabelas finais](data/processed). Seu ano de lançamento foi aproveitado na tabela [FILMS](data/processed/films_table.csv), cuja criação se deu mediante JOINs SQL descritos abaixo.
 
 ### Tratamento de dados
-*falta escrever intro*
+
+Realizamos duas grandes operações de tratamentos de dados intermediários, dados estes explicitados [neste diretório](data/interim), ambas para produzir a versão final da tabela [FILMS](data/processed/films_table.csv). Primeiro, fizemos uma série de JOINs em SQL para obter uma versão próxima da versão final da tabela. Segundo, para finalizar, usamos um script para obter a inflação acumulada do dólar americano desde 1972, e outro script para alterar a tabela FILMS de modo a ajustar sua bilheteria de acordo com a inflação.
 
 #### JOINs em SQL (Tratamento 1)
-*falta escrever o SQL Joins*
+Uma série de operações JOINs foram realizadas para criar a tabela [FILMS](data/processed/films_table.csv). Primeiro, dado que a *API* do IMDb fornece arquivos TSV separados para as avaliações e para os gêneros, foi precismo [uma operação](src/ratings_titles_genres.sql) para unir essas informações. Segundo, dado que os dados sobre bilhetaria e número de ingressos vendidos foi obtido externamente via *webscraping* no *website* The Numbers, conforme detalhado algumas sub-seções acima, [outra operação](src/ratings_titles_genres_boxoffice.sql) se provou necessária para unir esses dados. Terceiro e por fim, dado que os dados sobre avaliação Metacritic foram obtidos independentemente por *webscraping*, [uma terceira e final operação de JOIN](src/ratings_titles_genres_boxoffice_metacritic.sql) foi realizada. A tabela FILMS só foi finalizada em uma etapa posterior, mediante script Python detalhado abaixo para corrigir a bilheteria pela inflação.
+
+Destacamos abaixo a mais desafiadora operação: a segunda destas operações SQL. Nela, tínhamos uma tabela com a bilheteria de nossos 1250 filmes selecionados, e outra tabela com milhões de linhas contendo todas as informações que baixamos da *API* do IMDb, sobre centenas de milhares de filmes. Era preciso realizar um JOIN que resultasse numa tabela contendo apenas esses 1250 filmes selecionados. Não era possível realizar um JOIN baseado apenas no título do filme, visto que o nome do filme não é único, muitas vezes com três filmes partilhando o mesmo nome. Na operação de JOIN. Ignorar este fato produzia até três vezes mais linhas do que o que seria correto, visto que todas as combinações possíveis são realizadas durante a operação de JOIN. Então foi preciso também adicionar como critério ao JOIN o ano em que o filme foi publicado, dado que não se tem conhecimento de dois filmes com o mesmo nome que haviam sido publicados no mesmo ano.
+
+~~~sql
+SELECT *
+INTO Test.dbo.ratings_titles_genres_boxoffice
+FROM (
+	SELECT CONVERT(ntext, t1.tconst) as imdb_id, t1.averageRating as imdb_rating, CONVERT(ntext, t1.primaryTitle) as title, t1.startYear as year, CONVERT(ntext, t1.genres) as genres, t2.column3 as boxOffice, t2.column4 as numTickets
+	FROM Test.dbo.ratings_titles_genres t1, Test.dbo.titles_boxoffice t2
+	WHERE t1.primaryTitle = t2.column2
+	AND CONVERT(nvarchar(max), t1.startYear) = CONVERT(nvarchar(max), t2.column1)
+~~~
 
 #### Correção pela Inflação (Tratamento 2)
-*falta revisar*
+Conforme mencionado em uma seção anterior, baixamos [desta fonte](https://www.macrotrends.net/countries/USA/united-states/inflation-rate-cpi) uma tabela com a taxa de inflação anual do dólar americano desde 1972. Com base nisso, [este script](src/get_accumulated_inflation.py) calculou a taxa de inflação acumulada para cada ano, sendo a inflação acumulada de 1972 igual a 1.0, tomado como ano-referência. Dividindo um valor nominal de um objeto do ano X pela taxa de inflação acumulada naquele ano X, obtém-se o valor real daquele objeto em termos dos dólares do ano 1972. O trecho de código abaixo, pertencente ao script supracitado, mostra como que a taxa de inflação acumulada foi calculada:
 
-Para o ajuste da inflação, encontramos um site que contenha alguns dados para nos ajudar no cálculo: https://www.macrotrends.net/countries/USA/united-states/inflation-rate-cpi
+~~~python
+for idx, row in inflation.iterrows():
+	inflation.loc[idx, 'date'] = row.date[:4]
+	inflation.loc[idx, 'inflation'] = 1 + (row.inflation / 100)
+~~~
 
-Utilizamos o ano de 1972 como refêrencia e obtemos a inflação acumulada para os próximos cinquenta anos. Com cada um desses valores prontos, podemos dividir o *box-office* do ano pela inflação acumulada e descobrir o valor em comparação ao ano de 1972.
+Já [este outro script](src/films_table_inflation_corrected.py) produz a versão final da tabela [FILMS](data/processed/films_table.csv) ao adicionar colunas informando a bilheteria em valores reais de 1972 e o preço unitário dos ingressos em termos destes valores reais. O trecho de código abaixo explicita apenas o primeiro desses dois processos: o de correção monetária.
+
+~~~python
+boxOfficeAdjusted = list()
+for idx, row in films.iterrows():
+	val = row.boxOffice / get_accum(row.year)
+	boxOfficeAdjusted.append(val)
+films['boxOfficeAdjusted'] = boxOfficeAdjusted
+~~~
 
 ![Imagem da Inflaçao](assets/united-states-inflation.png)
 
