@@ -162,7 +162,70 @@ def get_metascore(movie_name):
 APIs atuam como interfaces, permitindo que elementos externos interajamc com objetos ignorando sua instrura interna. Neste caso, sem saber o modelo lógico dos bancos de dados *online* com os quais estamos interagindo, escrevemos códigos que interagem com as APIs desses bancos de dados, obtendo informações vitais para a construção de nosso *dataset*. Interagimos com duas APIs, usando respectivamente JavaScript e Python. Mais detalhes sobre *APIs* constam na seção "Evolução do Projeto" do presente documento.
 
 ####  TMDb Checker (API 1)
-*falta escrever o TMDB Checker*
+Para recolher os dados da *API* do *The Movie Database* foi feito um script  em javascript (node) que utiliza a biblioteca *axios* para fazer as requisições e se encontra no [app.js](src/tmdb-checker/app.js). Como ponto de partida temos uma lista com os títulos dos filmes, mas a rota da *API* que fornece os dados que necessitamos faz a busca pelo ID, então foi necessário antes buscar pelos IDs.
+
+Primeiramente o resultado do *webscrapping 1* contendo nossa lista de filmes foi salvo no arquivo [data.js](src/tmdb-checker/data.js), que exporta um array contendo os objetos "filmes". Em seguida o código funcionará em três tempos:
+ 
+ * 1 - Buscar os IDs do filmes: 
+ ~~~javascript
+const getMoviesIds = async () => {
+    let counter = 0;
+    await Promise.all(
+        selected_movies.map(async (movie, index) => {
+            let query = createUrlQueryName(movie);
+            try {
+                let res = await axios.get(`${API_URL_NAME}${query}`);
+                counter++;
+                console.log(`nome:${movie.nome} id:${res.data.results[0].id} `);
+                movies_ids.push(res.data.results[0].id);
+            } catch {
+                console.log(`MISSING MOVIE ${movie.nome}`);
+                missing_movies.push(movie.nome);
+            }
+ ~~~ 
+No array *selected_movies* temos a lista com os títulos dos filmes. É feito entao um .map que percorre os títulos e, para cada título, retorna o resultado da requisição. Se a requisição obtiver resposta, o array *movies_id* ira receber o id buscado. Se a requisição não for bem sucedida o título do filme é adicionado à *missing_movies*, para termos controle da quantidade de filmes não encontrados na API.
+
+* 2 - Buscar as informações dos filmes disponíveis:
+
+~~~javascript
+const getMoviesData = async () => {
+    await Promise.all(
+        movies_ids.map(async (id, index) => {
+            let url_complement = `${id}?api_key=${key}`;
+            try {
+                let res = await axios.get(`${API_URL_ID}${url_complement}`);
+                console.log(
+                    `id:${id} nome:${res.data.original_title} lancamento:${
+                        res.data.release_date
+                    }  estudios:${
+                        res.data.production_companies.length > 0
+                            ? "true"
+                            : "false"
+                    }`
+                );
+                if (res.data.release_date && res.data.production_companies) {
+                    selected_data.push({
+                        tmdb_id: id,
+                        imdb_id: res.data.imdb_id,
+                        production_companies: res.data.production_companies,
+                        release_date: res.data.release_date,
+                    });
+                }
+~~~
+Repetimos o processo anterior de percorrer um array e realizar quisições com seus itens, mas agora com o array *movies_ids*, fruto do processo 1. A cada requisição com o ID de cada filme, é impresso na tela seu id, nome, data de lancamento e se possui informações sobre estudios. Se o filme possuir as informações sobre data de lançamento e estudios de produção criamos um objeto que reune esses dados e envia para um array final *selected_data*.
+
+* 3 - Criar um arquivo JSON com as informações recolhidas
+~~~javascript
+const createData = async () => {
+    let missing_movies_obj = { missing_movies: missing_movies };
+    let selected_data_obj = { data: selected_data };
+    let missing_movies_json = JSON.stringify(missing_movies_obj);
+    let selected_data_json = JSON.stringify(selected_data_obj);
+    fs.writeFileSync("missing-movies.json", missing_movies_json);
+    fs.writeFileSync("selected-data.json", selected_data_json);
+~~~
+Os objetos recolhidos no array de filmes não encontrados e no array informações recolhidas são transformados em string e em seguida escritos em um arquivo .JSON criado. Esse arquivo por fim foi convertido em CSV para se relacionar com os demais dados do projeto.
+
 
 #### IMDb (API 2)
 Esta se trata de uma *API* apenas em um sentido estendido, e nos referimos a isso como *API* apenas porque os organizadores do IMDb se referiram a isso como tal em comunicação privada via *e-mail*. Trata-se de arquivos TSV prontos que resumem, de forma limitada, informações que estão dispersas no vasto banco de dados do IMDb. Ao permitir uma interação simplificada com tal banco de dados, temos uma *API* no sentido estendido.
