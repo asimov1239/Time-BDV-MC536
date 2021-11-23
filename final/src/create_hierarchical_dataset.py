@@ -39,6 +39,6 @@ for idx in range(len(idlist)):
 			doc['studios'].append({'studio': row.studio, 'country': row.country})
 
 text = pprint({'data': jsonlist})
-file = open('hiearchical_model.json', 'w')
+file = open('hierarchical_model.json', 'w')
 file.write(text)
 file.close()
