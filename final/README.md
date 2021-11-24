@@ -307,8 +307,9 @@ FROM movies
 JOIN studios ON movies.imdb_id = studios.imdb_id
 GROUP BY studios.studio
 ORDER BY SUM(movies.box_office_adjusted) DESC;
-
 ```
+
+![Tabela Pergunta 1](assets/studios_budget.png)
 
 * Pergunta/Análise 2: Modelo Hierárquico - Quais os filmes com produção de maior colaboração internacional?
 
