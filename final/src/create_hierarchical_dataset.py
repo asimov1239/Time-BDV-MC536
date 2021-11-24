@@ -38,7 +38,8 @@ for idx in range(len(idlist)):
 		if row.imdb_id == _id:
 			doc['studios'].append({'studio': row.studio, 'country': row.country})
 
-text = pprint({'data': jsonlist})
-file = open('hierarchical_model.json', 'w')
-file.write(text)
+final = {'data': jsonlist}
+_json = json.dumps(final, indent=4)
+file = open('hiearchical_model.json', 'w')
+file.write(_json)
 file.close()
