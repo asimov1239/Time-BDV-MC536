@@ -16,7 +16,7 @@ Dataset relacional que integra informações de diversas fontes sobre os 25 film
 
 ## Modelo Conceitual
 
-![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpeg)
+![Modelo Conceitual Preliminar](assets/conceitual_trabalho.jpg)
 
 ## Modelos Lógicos Preliminares
 
