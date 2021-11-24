@@ -12,7 +12,7 @@ Dataset relacional que integra informações de diversas fontes sobre os 25 film
 
 ## Slides da Apresentação
 
-[Link da apresentação (Google Slides)](slides/final_slides.pdf)
+[Link da apresentação (Google Slides)](slides/slides_final.pdf)
 
 ## Modelo Conceitual
 
