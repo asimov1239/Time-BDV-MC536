@@ -289,7 +289,7 @@ Segundo, porque há um grande percalço que pode impedir o uso de uma *API*: boa
 
 Em ambos os casos, utilizamos scripts em Python e em JavaScript para obter os dados, conforme detalhado na seção anterior; os scripts se localizam [aqui](src). Após a coleta e limpeza de dados, tínhamos em mãos arquivos TSV e CSV que foram inseridos como tabelas preliminares no *software* Microsoft SQL Server Management Studio (MS SSMS), na qual pudemos então realizar algumas operações adicionais, principalmente operações de JOIN para unificar muitas das tabelas que tínhamos e obter o *dataset* final FILMS disponível em formato CSV [neste diretório](data/processed). Os scripts SQL podem ser encontrados [aqui](src). A correção monetária (pela inflação) foi realizada com um algoritmo em Python, assim como foi a criação da tabelas subsidiárias GENRES, REVIEWS, e STUDIOS disponíveis [na mesma pasta](data/processed) de FILMS, e cujos scripts de criação podem ser escontrados [na mesma pasta](src) dos scripts SQL.
 
-
+Infelizmente, devido a limitações dos bancos de dados do *website* The Numbers e da *API* TMDB, nosso *dataset* final possui 1036 filmes ao invés de 1250. O resto dos filmes não puderam ser identificados devido a dados faltantes, principalmente o código IMDb. 
 
 ## Perguntas de Pesquisa/Análise Combinadas e Respectivas Análises
 
@@ -305,7 +305,11 @@ ORDER BY SIZE(productors) DESC LIMIT 10
 
 * Pergunta/Análise 2: Modelo Hierárquico - Quais os filmes com produção de maior colaboração internacional?
 
-Na construção de nosso dataset, cruzamos informações vindas da API do The Movie Database (TMDB), do qual obtemos arquivos JSON informando os estúdios que participaram na produção de cada filme, junto com o país de origem de cada estúdio. Dessa forma, será possível percorrer cada um de nossos objetos JSON (correspondentes cada um a um filme) e quantificar quais filmes possuem uma maior quantidade de países diferentes dentro de sua lista interna de estúdios de produção.
+Nosso modelo hierárquico possui um documento JSON para cada filme em nosso *dataset*. Neste documento, há um campo "studios" que contém uma lista de cada um dos estúdios, com cada item na lista informando tanto o nome do estúdio quanto seu pais de origem. Escrevemos um script que informava quais são os filmes  com o maior número de estúdios de diferentes países em sua produção, e descobrimos que há três filmes que se destacam por ter *quatro* países de origem: *Casino Royale* (tt0381061) do ano 2006 e produzido em US, DE, GB, e CZ; *Gladiator* (tt0172495) do ano 2000 e produzido em US, MA, GB, e MT; e *Troy* (tt0332452) do ano 2004 e produzido em US, BG, GB, e MT. Nossa query foi feita em MongoDB, e possui o seguinte componente principal:
+
+~~~python
+db.getCollection('data').find( { 'studios' : { $size : { $gte : 4 } } } )
+~~~
 
 * Pergunta/Análise 3: Modelo Relacional - Qual a evolução temporal da quantidade de ingressos média dos filmes de maior sucesso ao longo dos anos?
 
